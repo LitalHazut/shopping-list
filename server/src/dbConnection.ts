@@ -2,7 +2,7 @@
 import * as sql from 'mssql';
 
 const dbConfig = {
-  server: '(localdb)\\MSSQLLocalDB',
+  server: 'localhost',
   database: 'shopList',
   options: {
     encrypt: true,

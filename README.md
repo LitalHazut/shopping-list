@@ -1,46 +1,54 @@
-# Getting Started with Create React App
+Shopping list Project :
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<p>- The shopping list project is a project that allows you to add products according to the product name you write and according to the category you have chosen, after that you make an addition and see below where you need to end each product in which department. </p>
+<p>- A Shopping list Project, written in ReactJS,NodeJS,TypeScript and DB -MSSQL.</p>
 
-## Available Scripts
 
-In the project directory, you can run:
+## How to Use:
 
-### `npm start`
+Clone or download
+NodeJS / NPM / Yarn should be installed in your PC
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Open terminal or Git for Windows (Git Bash)
+Run these commands:
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
 
-### `npm test`
+## Download DB to local mssql:
+<p>- In this project i use with data base MSSQL - and to download you directly to you - you need to go to folder- sqlbackup inside you have a bak file and in Microsoft SQL Server Management Studio 18 app you make an import to this bak file-</p>
+<p>1.Right click on Databases</p>
+<p>2.Import data-tier Application</p>
+<p>3.In browse you choose this file </p>
+<p>3.click NEXT </p>
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Install Dependencies:
 
-### `npm run build`
+yarn install
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+OR
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+npm install
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Run client side 
 
-### `npm run eject`
+yarn start
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+OR
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+npm start
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+## open one more terminal and 
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+### Run server side 
 
-## Learn More
+yarn start
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+OR
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+npm start
+
+
+<br/>
+
+### after all this you need to see the shopping list and to start to add a products to ypur shopping list
+
+ ## Enjoy :)
