@@ -9,6 +9,7 @@ const PORT = 3001;
 app.use(cors());
 app.use(express.json());
 
+
 if (process.env.NONE_ENV === 'production') {
   app.use(express.static(path.resolve(__dirname, 'public')));
 } else {
@@ -18,6 +19,7 @@ if (process.env.NONE_ENV === 'production') {
   };
   app.use(cors(corsOptions));
 }
+
 
 const shopService = new ShopService();
 

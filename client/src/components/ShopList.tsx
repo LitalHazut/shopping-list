@@ -8,6 +8,7 @@ import { ICategory, IProduct } from '../types';
 const ShopList = () => {
     const [productName, setProductName] = useState('');
     const [categories, setCategories] = useState<ICategory[]>([]); // Specify the type of elements in the array
+    const [products, setProducts] = useState<IProduct[]>([]); // Specify the type of elements in the array
     const [selectedCategory, setSelectedCategory] = useState<ICategory | undefined>();
 
 
@@ -48,48 +49,76 @@ const ShopList = () => {
             console.error('Error adding product:', error);
         }
     };
-
+    const getNumberOfProducts = (categoryId: number) => {
+        return products.filter(product => product.CategoryID === categoryId).length;
+    };
     return (
         <div>
             <h1>רשימת קניות</h1>
-            <div style={{ marginRight: '60%' }}>
-                <h3>סה"כ: X מוצרים</h3>
+            <div style={{ marginRight: '80%' }}>
+                <h4>סה"כ: X מוצרים</h4>
             </div>
             <div style={{ display: 'flex', justifyContent: 'center' }} dir="rtl">
                 <div>
-                    <input
-                        style={{ width: '120px', height: '25px' }}
+                    <input className="form-control"
+                        style={{ width: '200px', height: '45px' }}
                         type="text"
                         id="productName"
-                        placeholder="מוצר"
+                        placeholder="שם המוצר"
                         value={productName}
                         onChange={(e) => setProductName(e.target.value)}
                     />
                 </div>
-                <div style={{ marginRight: '20px' }}>
-                    <select
-                        id="category"
-                        style={{ width: '150px', height: '25px' }}
-                        value={selectedCategory?.CategoryID}
-                        onChange={(e) => setSelectedCategory(findCategoryById(Number(e.target.value)))}
+                <div style={{ marginRight: '90px' }} className="dropdown">
+                    <button
+                        style={{ width: '200px' }}
+                        dir="rtl"
+                        className="btn btn-info dropdown-toggle"
+                        type="button"
+                        id="categoryDropdown"
+                        data-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false"
                     >
+                        קטגוריה
+                    </button>
+                    <div className="dropdown-menu" aria-labelledby="categoryDropdown">
                         {categories.map((category, index) => (
-                            <option key={index} value={category.CategoryID}>
+                            <button
+                                key={index}
+                                className="dropdown-item"
+                                type="button"
+                                onClick={() => setSelectedCategory(findCategoryById(category.CategoryID))}
+                            >
                                 {category.CategoryName}
-                            </option>
+                            </button>
                         ))}
-                    </select>
+                    </div>
                 </div>
 
-                <div style={{ marginRight: '20px' }}>
-                    <button
-                        style={{ width: '100px', height: '25px' }}
+                <div style={{ marginRight: '90px' }}>
+
+                    <button type="button" className="btn btn-info"
+                        style={{ width: '120px', height: '40px' }}
                         onClick={handleAddProduct}
                     >
                         הוסף
                     </button>
                 </div>
             </div>
+            <hr style={{ border: '1px solid #ccc', margin: '170px 0' }} />
+            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                {categories
+                    .map((category, index) => (
+                        <div key={index} style={{ border: '1px solid gray', padding: '10px', width: '150px', textAlign: 'center' }}>
+                            <div style={{ fontWeight: 'bold' }}>{category.CategoryName}</div>
+                            <div>{`Number of products: ${getNumberOfProducts(category.CategoryID)}`}</div>
+                        </div>
+                    ))
+                }
+            </div>
+
+
         </div>
     );
 };
