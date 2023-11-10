@@ -1,15 +1,21 @@
+// dbConnection.ts
 import * as sql from 'mssql';
 
 const dbConfig = {
+  user: 'your_username',
+  password: 'your_password',
   server: 'localhost',
   database: 'shopList',
   options: {
-    encrypt: true, // If you are using Microsoft Azure, you need this
-    trustedConnection: true, // Use Windows Authentication (integrated security)
+    encrypt: true,
   },
 };
 
 const pool = new sql.ConnectionPool(dbConfig);
-const dbConnection = pool.connect();
 
-export default dbConnection;
+export const dbConnection = {
+  pool,
+  connect: async () => {
+    await pool.connect();
+  },
+};

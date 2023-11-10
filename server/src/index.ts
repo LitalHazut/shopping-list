@@ -1,4 +1,4 @@
-import TasksService from './tasksService';
+import ShopService from './shopService';
 import express from 'express';
 import cors from 'cors';
 import * as path from 'path';
@@ -19,29 +19,17 @@ if (process.env.NONE_ENV === 'production') {
   app.use(cors(corsOptions));
 }
 
-const taskService = new TasksService();
+const shopService = new ShopService();
 
 // Route to get all posts
 app.get('/api/get', async (req, res) => {
-  res.send({ tasks: await taskService.getAllTasks() });
+  res.send({ categories: await shopService.getAllCategories() });
 });
 
 app.post('/api/post', async (req, res) => {
   const name = req.body.name;
-  const isCompleted = false;
-  res.send({ tasks: await taskService.createTask(name, isCompleted) });
-});
-
-app.delete(`/api/delete/:id`, async (req, res) => {
-  console.log(req.params.id);
-  const id = parseInt(req.params.id as string);
-  res.send({ tasks: await taskService.deleteTask(id) });
-});
-
-app.put(`/api/put/:id`, async (req, res) => {
-  const data = [req.body.name, req.body.isCompleted, req.params.id];
-  console.log(data);
-  res.send({ tasks: await taskService.updateTask(data) });
+  const categoryId = req.body.categoryId;
+  res.send({ product: await shopService.addProduct(name, categoryId) });
 });
 
 app.listen(PORT, () => {
