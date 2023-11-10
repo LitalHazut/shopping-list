@@ -1,8 +1,13 @@
 export interface IProduct {
-  id: number;
-  name: string;
-  count: number;
-  categoryId: string;
+  ProductID: number;
+  ProductName: string;
+  Count: number;
+  CategoryID: number;
+}
+export interface ICategory {
+  CategoryID: number;
+  CategoryName: string;
+
 }
 export type ShopContextType = {
   products: IProduct[];

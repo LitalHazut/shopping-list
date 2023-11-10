@@ -63,12 +63,11 @@ exports.dbConnection = void 0;
 // dbConnection.ts
 var sql = __importStar(require("mssql"));
 var dbConfig = {
-    user: 'your_username',
-    password: 'your_password',
-    server: 'localhost',
+    server: '(localdb)\\MSSQLLocalDB',
     database: 'shopList',
     options: {
         encrypt: true,
+        trustedConnection: true, // Use Windows Authentication
     },
 };
 var pool = new sql.ConnectionPool(dbConfig);

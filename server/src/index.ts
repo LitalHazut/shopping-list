@@ -29,7 +29,8 @@ app.get('/api/get', async (req, res) => {
 app.post('/api/post', async (req, res) => {
   const name = req.body.name;
   const categoryId = req.body.categoryId;
-  res.send({ product: await shopService.addProduct(name, categoryId) });
+  const count = req.body.count;
+  res.send({ product: await shopService.addProduct(name, categoryId, count) });
 });
 
 app.listen(PORT, () => {

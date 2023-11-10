@@ -98,16 +98,17 @@ app.get('/api/get', function (req, res) { return __awaiter(void 0, void 0, void 
     });
 }); });
 app.post('/api/post', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var name, categoryId, _a, _b;
+    var name, categoryId, count, _a, _b;
     var _c;
     return __generator(this, function (_d) {
         switch (_d.label) {
             case 0:
                 name = req.body.name;
                 categoryId = req.body.categoryId;
+                count = req.body.count;
                 _b = (_a = res).send;
                 _c = {};
-                return [4 /*yield*/, shopService.addProduct(name, categoryId)];
+                return [4 /*yield*/, shopService.addProduct(name, categoryId, count)];
             case 1:
                 _b.apply(_a, [(_c.product = _d.sent(), _c)]);
                 return [2 /*return*/];

@@ -2,12 +2,11 @@
 import * as sql from 'mssql';
 
 const dbConfig = {
-  user: 'your_username',
-  password: 'your_password',
-  server: 'localhost',
+  server: '(localdb)\\MSSQLLocalDB',
   database: 'shopList',
   options: {
     encrypt: true,
+    trustedConnection: true, // Use Windows Authentication
   },
 };
 
