@@ -22,7 +22,6 @@ if (process.env.NONE_ENV === 'production') {
 
 const shopService = new ShopService();
 
-// Route to get all posts
 app.get('/api/get', async (req, res) => {
     res.send({ categories: await shopService.getAllCategories() });
 });

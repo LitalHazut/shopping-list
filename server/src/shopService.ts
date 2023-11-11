@@ -1,5 +1,3 @@
-// ShopService.ts
-
 import { Int, VarChar } from "mssql";
 import { dbConnection } from "./dbConnection";
 
