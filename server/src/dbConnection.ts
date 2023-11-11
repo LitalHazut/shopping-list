@@ -1,20 +1,30 @@
-// dbConnection.ts
-import * as sql from 'mssql';
-
-const dbConfig = {
-  server: 'localhost',
-  database: 'shopList',
+import sql from 'mssql/msnodesqlv8'
+var config = {
+  server: "(localdb)\\MSSQLLocalDB",  // Note the double backslash
+  database: "shopList",               // Corrected spelling
   options: {
-    encrypt: true,
-    trustedConnection: true, // Use Windows Authentication
+    trustedConnection: true,
   },
+  driver: "msnodesqlv8",
 };
 
-const pool = new sql.ConnectionPool(dbConfig);
+
+const pool = new sql.ConnectionPool(config);
 
 export const dbConnection = {
   pool,
   connect: async () => {
-    await pool.connect();
+    try {
+      await pool.connect();
+    } catch (error) {
+      throw error;
+    }
   },
 };
+
+
+
+
+
+
+

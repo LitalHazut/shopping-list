@@ -11,7 +11,6 @@ export const fetchCategories = async () => {
         const response = await axios.get('/api/get');
         return response.data.categories;
     } catch (error) {
-        console.error('Error fetching categories:', error);
         throw error;
     }
 };

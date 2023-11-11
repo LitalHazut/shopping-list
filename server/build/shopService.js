@@ -39,34 +39,45 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var mssql_1 = require("mssql");
 var dbConnection_1 = require("./dbConnection");
+var sql = require('mssql');
 var ShopService = /** @class */ (function () {
     function ShopService() {
     }
     ShopService.prototype.getAllCategories = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var result, error_1;
+            var result;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0:
-                        _a.trys.push([0, 3, , 4]);
-                        return [4 /*yield*/, dbConnection_1.dbConnection.connect()];
+                    case 0: return [4 /*yield*/, dbConnection_1.dbConnection.connect()];
                     case 1:
                         _a.sent();
                         return [4 /*yield*/, dbConnection_1.dbConnection.pool.request().query('SELECT * FROM Category')];
                     case 2:
                         result = _a.sent();
                         return [2 /*return*/, result.recordset];
-                    case 3:
-                        error_1 = _a.sent();
-                        throw error_1;
-                    case 4: return [2 /*return*/];
+                }
+            });
+        });
+    };
+    ShopService.prototype.getAllProducts = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var result;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, dbConnection_1.dbConnection.connect()];
+                    case 1:
+                        _a.sent();
+                        return [4 /*yield*/, dbConnection_1.dbConnection.pool.request().query('SELECT * FROM Product')];
+                    case 2:
+                        result = _a.sent();
+                        return [2 /*return*/, result.recordset];
                 }
             });
         });
     };
     ShopService.prototype.addProduct = function (name, categoryId, count) {
         return __awaiter(this, void 0, void 0, function () {
-            var sqlQuery, result, error_2;
+            var sqlQuery, result, error_1;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -85,8 +96,8 @@ var ShopService = /** @class */ (function () {
                         result = _a.sent();
                         return [2 /*return*/, result.recordset];
                     case 3:
-                        error_2 = _a.sent();
-                        throw error_2;
+                        error_1 = _a.sent();
+                        throw error_1;
                     case 4: return [2 /*return*/];
                 }
             });

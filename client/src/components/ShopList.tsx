@@ -15,9 +15,8 @@ const ShopList = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const categories = await fetchCategories();
-                setCategories(categories);
-                console.log(categories)
+                const allCategories = await fetchCategories();
+                setCategories(allCategories);
             } catch (error) {
                 console.error('Error fetching categories:', error);
             }
@@ -25,6 +24,8 @@ const ShopList = () => {
 
         fetchData();
     }, []);
+
+
     const findCategoryById = (categoryId: number): ICategory | undefined => {
         return categories.find((category) => category.CategoryID === categoryId);
     };
@@ -106,13 +107,12 @@ const ShopList = () => {
                     </button>
                 </div>
             </div>
-            <hr style={{ border: '1px solid #ccc', margin: '170px 0' }} />
-            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+            <hr style={{ border: '1px solid #ccc', margin: '120px' }} />
+            <div style={{ display: 'flex', justifyContent: 'space-between', }}>
                 {categories
                     .map((category, index) => (
                         <div key={index} style={{ border: '1px solid gray', padding: '10px', width: '150px', textAlign: 'center' }}>
                             <div style={{ fontWeight: 'bold' }}>{category.CategoryName}</div>
-                            <div>{`Number of products: ${getNumberOfProducts(category.CategoryID)}`}</div>
                         </div>
                     ))
                 }

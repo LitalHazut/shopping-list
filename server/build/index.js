@@ -70,12 +70,12 @@ var app = (0, express_1.default)();
 var PORT = 3001;
 app.use((0, cors_1.default)());
 app.use(express_1.default.json());
-if (process.env.NODE_ENV === 'production') {
+if (process.env.NONE_ENV === 'production') {
     app.use(express_1.default.static(path.resolve(__dirname, 'public')));
 }
 else {
     var corsOptions = {
-        origin: ['http://localhost:3000'],
+        origin: ['*'],
         credentials: true,
     };
     app.use((0, cors_1.default)(corsOptions));

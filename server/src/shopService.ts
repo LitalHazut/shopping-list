@@ -3,17 +3,20 @@
 import { Int, VarChar } from "mssql";
 import { dbConnection } from "./dbConnection";
 
+const sql = require('mssql');
+
 class ShopService {
   async getAllCategories(): Promise<any> {
-    try {
-      await dbConnection.connect();
-      const result = await dbConnection.pool.request().query('SELECT * FROM Category');
-      return result.recordset;
-    } catch (error) {
-      throw error;
-    }
+    await dbConnection.connect();
+    const result = await dbConnection.pool.request().query('SELECT * FROM Category');
+    return result.recordset;
   }
 
+  async getAllProducts(): Promise<any> {
+    await dbConnection.connect();
+    const result = await dbConnection.pool.request().query('SELECT * FROM Product');
+    return result.recordset;
+  }
   async addProduct(name: string, categoryId: boolean, count: number): Promise<any> {
     try {
       await dbConnection.connect();
