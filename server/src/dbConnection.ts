@@ -1,7 +1,7 @@
 import sql from 'mssql/msnodesqlv8'
 var config = {
-  server: "(localdb)\\MSSQLLocalDB",  // Note the double backslash
-  database: "shopList",               // Corrected spelling
+  server: "(localdb)\\MSSQLLocalDB", // Replace here your server name
+  database: "shopList",
   options: {
     trustedConnection: true,
   },
