@@ -16,7 +16,10 @@ const ShopList = () => {
         const fetchData = async () => {
             try {
                 const allCategories = await fetchCategories();
+                const allProducts = await fetchProducts();
                 setCategories(allCategories);
+                setProducts(allProducts);
+
             } catch (error) {
                 console.error('Error fetching categories:', error);
             }
@@ -43,7 +46,7 @@ const ShopList = () => {
             };
 
             await createProduct(newProduct);
-            const updatedCategories = await fetchProducts();
+            const updatedCategories = await fetchCategories();
             setCategories(updatedCategories.data);
             setProductName('');
         } catch (error) {
@@ -83,7 +86,7 @@ const ShopList = () => {
                     >
                         קטגוריה
                     </button>
-                    <div className="dropdown-menu" aria-labelledby="categoryDropdown">
+                    <div className="dropdown-menu" aria-labelledby="categoryDropdown" style={{ alignItems: 'center' }}>
                         {categories.map((category, index) => (
                             <button
                                 key={index}
@@ -108,16 +111,19 @@ const ShopList = () => {
                 </div>
             </div>
             <hr style={{ border: '1px solid #ccc', margin: '120px' }} />
-            <div style={{ display: 'flex', justifyContent: 'space-between', }}>
-                {categories
-                    .map((category, index) => (
-                        <div key={index} style={{ border: '1px solid gray', padding: '10px', width: '150px', textAlign: 'center' }}>
-                            <div style={{ fontWeight: 'bold' }}>{category.CategoryName}</div>
-                        </div>
-                    ))
-                }
+            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                {categories.map((category, index) => (
+                    <div key={index} style={{ border: '1px solid gray', padding: '10px', width: '150px', textAlign: 'center' }}>
+                        <div style={{ fontWeight: 'bold' }}>{category.CategoryName}</div>
+                        {/* Filter and display products for the current category */}
+                        {products
+                            .filter(product => product.CategoryID === category.CategoryID)
+                            .map((product, productIndex) => (
+                                <div key={productIndex}>{product.ProductName}</div>
+                            ))}
+                    </div>
+                ))}
             </div>
-
 
         </div>
     );

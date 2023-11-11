@@ -75,7 +75,7 @@ var ShopService = /** @class */ (function () {
             });
         });
     };
-    ShopService.prototype.addProduct = function (name, categoryId, count) {
+    ShopService.prototype.createProduct = function (name, categoryId, count) {
         return __awaiter(this, void 0, void 0, function () {
             var sqlQuery, result, error_1;
             return __generator(this, function (_a) {

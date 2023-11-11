@@ -61,11 +61,9 @@ exports.dbConnection = {
                     return [4 /*yield*/, pool.connect()];
                 case 1:
                     _a.sent();
-                    console.log('Connected to the database');
                     return [3 /*break*/, 3];
                 case 2:
                     error_1 = _a.sent();
-                    console.error('Error connecting to the database:', error_1);
                     throw error_1;
                 case 3: return [2 /*return*/];
             }

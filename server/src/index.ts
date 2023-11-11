@@ -26,14 +26,19 @@ const shopService = new ShopService();
 app.get('/api/get', async (req, res) => {
     res.send({ categories: await shopService.getAllCategories() });
 });
-
-app.post('/api/post', async (req, res) => {
-    const name = req.body.name;
-    const categoryId = req.body.categoryId;
-    const count = req.body.count;
-    res.send({ product: await shopService.addProduct(name, categoryId, count) });
+app.get('/api/getProducts', async (req, res) => {
+    res.send({ products: await shopService.getAllProducts() });
 });
-
+app.post('/api/post', async (req, res) => {
+    try {
+        const { name, categoryId, count } = req.body;
+        const result = await shopService.createProduct(name, categoryId, count);
+        res.send({ product: result });
+    } catch (error) {
+        console.error('Error creating product:', error);
+        res.status(500).send({ error: 'Internal Server Error' });
+    }
+});
 app.listen(PORT, () => {
     console.log(`Server is running on ${PORT}`);
 });
