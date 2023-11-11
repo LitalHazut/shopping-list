@@ -17,6 +17,7 @@ class ShopService {
     const result = await dbConnection.pool.request().query('SELECT * FROM Product');
     return result.recordset;
   }
+  
   async createProduct(name: string, categoryId: boolean, count: number): Promise<any> {
     try {
       await dbConnection.connect();
