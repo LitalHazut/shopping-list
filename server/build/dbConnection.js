@@ -63,7 +63,7 @@ exports.dbConnection = void 0;
 // dbConnection.ts
 var sql = __importStar(require("mssql"));
 var dbConfig = {
-    server: '(localdb)\\MSSQLLocalDB',
+    server: 'localhost',
     database: 'shopList',
     options: {
         encrypt: true,
