@@ -135,15 +135,15 @@ app.post('/api/post', function (req, res) { return __awaiter(void 0, void 0, voi
         }
     });
 }); });
-app.put('/api/update/:productId', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var count, productId, result, error_2;
+app.put('/api/products/:productId', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var Count, ProductID, result, error_2;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 2, , 3]);
-                count = req.body.count;
-                productId = req.params.productId;
-                return [4 /*yield*/, shopService.updateProductCount(productId, count)];
+                Count = req.body.Count;
+                ProductID = req.params.productId;
+                return [4 /*yield*/, shopService.updateProductCount(ProductID, Count)];
             case 1:
                 result = _a.sent();
                 console.log(result);

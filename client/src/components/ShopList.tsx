@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { updateProduct, fetchProducts, createProduct, fetchCategories } from '../shop-service';
-import { v4 as uuid } from 'uuid';
 import { ICategory, IProduct } from '../types';
 
 
@@ -9,7 +8,6 @@ const ShopList = () => {
     const [categories, setCategories] = useState<ICategory[]>([]);
     const [products, setProducts] = useState<IProduct[]>([]);
     const [selectedCategory, setSelectedCategory] = useState<ICategory | undefined>();
-
     const [buttonText, setButtonText] = useState('קטגוריה');
 
     useEffect(() => {
@@ -28,11 +26,11 @@ const ShopList = () => {
     }, []);
 
 
+    const totalItems = products.length;
     const findCategoryById = (categoryId: number): ICategory | undefined => {
         return categories.find((category) => category.CategoryID === categoryId);
     };
 
-    const totalItems = products.length;
 
     const handleAddProduct = async () => {
         try {
@@ -48,7 +46,7 @@ const ShopList = () => {
             const existingProduct = products.find(
                 product => product.ProductName === productName && product.CategoryID === selectedCategory?.CategoryID
             );
-            
+
             if (existingProduct) {
                 const updatedProduct = {
                     ...existingProduct,
@@ -65,16 +63,18 @@ const ShopList = () => {
                 };
                 await createProduct(newProduct);
             }
-
-            // const updatedCategories = await fetchCategories();
-            // setCategories(updatedCategories.data);
+            const updatedProducts = await fetchProducts();
+            setProducts(updatedProducts);
             setProductName('');
+            setButtonText('קטגוריה')
         } catch (error) {
             console.error('Error adding/updating product:', error);
         }
     };
 
-
+    const getNumberOfProducts = (categoryId: number) => {
+        return products.filter(product => product.CategoryID === categoryId).length;
+    };
     const handleCategoryClick = (category: ICategory) => {
         setSelectedCategory(findCategoryById(category.CategoryID));
         setButtonText(category.CategoryName);
@@ -137,8 +137,8 @@ const ShopList = () => {
             <h3>יש לאסוף מוצרים אלו במחלקות המתאימות</h3>
             <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '30px' }}>
                 {categories && categories.map((category, index) => (
-                    <div key={index} style={{ border: '1px solid gray', padding: '10px', width: '170px', textAlign: 'center', margin: '0 40px' }}>
-                        <div style={{ fontWeight: 'bold' }}>{category.CategoryName}</div>
+                    <div key={index} style={{ border: '1px solid gray', padding: '5px', width: '180px', textAlign: 'center', margin: '0 40px' }}>
+                        <div style={{ fontWeight: 'bold' }}>{category.CategoryName}- {getNumberOfProducts(category.CategoryID)} מוצרים</div>
                         {products && products
                             .filter(product => product.CategoryID === category.CategoryID)
                             .map((product, productIndex) => (

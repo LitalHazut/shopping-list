@@ -102,7 +102,7 @@ var ShopService = /** @class */ (function () {
             });
         });
     };
-    ShopService.prototype.updateProductCount = function (productId, count) {
+    ShopService.prototype.updateProductCount = function (ProductID, Count) {
         return __awaiter(this, void 0, void 0, function () {
             var sqlQuery, result, error_2;
             return __generator(this, function (_a) {
@@ -115,8 +115,8 @@ var ShopService = /** @class */ (function () {
                         sqlQuery = 'UPDATE Product SET Count = @Count WHERE ProductID = @ProductID';
                         return [4 /*yield*/, dbConnection_1.dbConnection.pool
                                 .request()
-                                .input('ProductID', mssql_1.Int, productId)
-                                .input('Count', mssql_1.Int, count)
+                                .input('ProductID', mssql_1.Int, ProductID)
+                                .input('Count', mssql_1.Int, Count)
                                 .query(sqlQuery)];
                     case 2:
                         result = _a.sent();
