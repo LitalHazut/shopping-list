@@ -29,10 +29,11 @@ app.get('/api/get', async (req, res) => {
 app.get('/api/getProducts', async (req, res) => {
     res.send({ products: await shopService.getAllProducts() });
 });
+
 app.post('/api/post', async (req, res) => {
     try {
-        const { name, categoryId, count } = req.body;
-        const result = await shopService.createProduct(name, categoryId, count);
+        const { productId, name, categoryId, count } = req.body;
+        const result = await shopService.createProduct(productId, name, categoryId, count);
         res.send({ product: result });
     } catch (error) {
         console.error('Error creating product:', error);

@@ -6,8 +6,8 @@ import { ICategory, IProduct } from '../types';
 
 const ShopList = () => {
     const [productName, setProductName] = useState('');
-    const [categories, setCategories] = useState<ICategory[]>([]); // Specify the type of elements in the array
-    const [products, setProducts] = useState<IProduct[]>([]); // Specify the type of elements in the array
+    const [categories, setCategories] = useState<ICategory[]>([]);
+    const [products, setProducts] = useState<IProduct[]>([]);
     const [selectedCategory, setSelectedCategory] = useState<ICategory | undefined>();
 
     const [buttonText, setButtonText] = useState('קטגוריה');
@@ -21,10 +21,9 @@ const ShopList = () => {
                 setProducts(allProducts);
 
             } catch (error) {
-                console.error('Error fetching categories:', error);
+                return error
             }
         };
-
         fetchData();
     }, []);
 
@@ -60,7 +59,6 @@ const ShopList = () => {
                 await createProduct(newProduct);
             }
 
-            // After either adding a new product or updating the count, update the categories and reset the input
             const updatedCategories = await fetchCategories();
             setCategories(updatedCategories.data);
             setProductName('');
@@ -129,7 +127,8 @@ const ShopList = () => {
                 </div>
             </div>
             <hr style={{ border: '1px solid #ccc', marginTop: '90px' }} />
-            <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '20px' }}>
+            <h3>יש לאסוף מוצרים אלו במחלקות המתאימות</h3>
+            <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '30px' }}>
                 {categories.map((category, index) => (
                     <div key={index} style={{ border: '1px solid gray', padding: '10px', width: '170px', textAlign: 'center', margin: '0 40px' }}>
                         <div style={{ fontWeight: 'bold' }}>{category.CategoryName}</div>

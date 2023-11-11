@@ -31,7 +31,6 @@ export async function createProduct(product: IProduct) {
 }
 const updateProduct = async (updatedProduct: IProduct) => {
     try {
-        // Use your API or database update logic here
         await axios.put(`/api/products/${updatedProduct.ProductID}`, updatedProduct);
     } catch (error) {
         console.error('Error updating product:', error);

@@ -3,7 +3,6 @@
 import { Int, VarChar } from "mssql";
 import { dbConnection } from "./dbConnection";
 
-const sql = require('mssql');
 
 class ShopService {
   async getAllCategories(): Promise<any> {
@@ -17,17 +16,18 @@ class ShopService {
     const result = await dbConnection.pool.request().query('SELECT * FROM Product');
     return result.recordset;
   }
-  
-  async createProduct(name: string, categoryId: boolean, count: number): Promise<any> {
+
+  async createProduct(productId: number, name: string, categoryId: boolean, count: number): Promise<any> {
     try {
       await dbConnection.connect();
 
-      const sqlQuery = 'INSERT INTO Product(Productname, CategoryId,Count) VALUES (@Productname, @CategoryId,@Count)';
+      const sqlQuery = 'INSERT INTO Product(ProductID,ProductName, CategoryID,Count) VALUES (@ProductID,@ProductName, @CategoryID,@Count)';
 
       const result = await dbConnection.pool
         .request()
-        .input('Productname', VarChar(255), name)
-        .input('CategoryId', Int, categoryId)
+        .input('ProductID', Int, productId)
+        .input('ProductName', VarChar(255), name)
+        .input('CategoryID', Int, categoryId)
         .input('Count', Int, count)
         .query(sqlQuery);
 
