@@ -35,6 +35,26 @@ class ShopService {
       throw error;
     }
   }
+  async updateProductCount(productId: string, count: number) {
+    try {
+      await dbConnection.connect();
+
+      const sqlQuery = 'UPDATE Product SET Count = @Count WHERE ProductID = @ProductID';
+
+      const result = await dbConnection.pool
+        .request()
+        .input('ProductID', Int, productId)
+        .input('Count', Int, count)
+        .query(sqlQuery);
+
+      return result.recordset;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+
 }
+
 
 export default ShopService;

@@ -102,6 +102,33 @@ var ShopService = /** @class */ (function () {
             });
         });
     };
+    ShopService.prototype.updateProductCount = function (productId, count) {
+        return __awaiter(this, void 0, void 0, function () {
+            var sqlQuery, result, error_2;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 3, , 4]);
+                        return [4 /*yield*/, dbConnection_1.dbConnection.connect()];
+                    case 1:
+                        _a.sent();
+                        sqlQuery = 'UPDATE Product SET Count = @Count WHERE ProductID = @ProductID';
+                        return [4 /*yield*/, dbConnection_1.dbConnection.pool
+                                .request()
+                                .input('ProductID', mssql_1.Int, productId)
+                                .input('Count', mssql_1.Int, count)
+                                .query(sqlQuery)];
+                    case 2:
+                        result = _a.sent();
+                        return [2 /*return*/, result.recordset];
+                    case 3:
+                        error_2 = _a.sent();
+                        throw error_2;
+                    case 4: return [2 /*return*/];
+                }
+            });
+        });
+    };
     return ShopService;
 }());
 exports.default = ShopService;

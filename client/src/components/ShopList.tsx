@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { fetchProducts, createProduct, fetchCategories } from '../shop-service';
+import { updateProduct, fetchProducts, createProduct, fetchCategories } from '../shop-service';
 import { v4 as uuid } from 'uuid';
 import { ICategory, IProduct } from '../types';
 
@@ -36,6 +36,15 @@ const ShopList = () => {
 
     const handleAddProduct = async () => {
         try {
+            if (productName === '') {
+                alert('נא לכתוב את שם המוצר כדי להוסיף את המוצר לסל הקניות');
+                return;
+            }
+            if (!selectedCategory) {
+                alert('לא נבחרה קטגוריה, יש לבחור קטגוריה כדי להוסיף את המוצר לסל הקניות');
+                return;
+            }
+
             const existingProduct = products.find(product => product.ProductName === productName);
 
             if (existingProduct) {
@@ -43,14 +52,12 @@ const ShopList = () => {
                     ...existingProduct,
                     Count: existingProduct.Count + 1,
                 };
-
-
+                await updateProduct(updatedProduct);
             } else {
-
                 const newProduct: IProduct = {
                     ProductName: productName,
                     Count: 1,
-                    CategoryID: selectedCategory?.CategoryID || 0
+                    CategoryID: selectedCategory?.CategoryID || 0,
                 };
                 console.log(newProduct);
                 await createProduct(newProduct);
@@ -59,11 +66,11 @@ const ShopList = () => {
             const updatedCategories = await fetchCategories();
             setCategories(updatedCategories.data);
             setProductName('');
-
         } catch (error) {
             console.error('Error adding/updating product:', error);
         }
     };
+
 
     const handleCategoryClick = (category: ICategory) => {
         setSelectedCategory(findCategoryById(category.CategoryID));

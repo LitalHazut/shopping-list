@@ -41,6 +41,23 @@ app.post('/api/post', async (req, res) => {
         res.status(500).send({ error: 'Internal Server Error' });
     }
 });
+
+app.put('/api/update/:productId', async (req, res) => {
+    try {
+        const { count } = req.body;
+        const productId = req.params.productId;
+
+        const result = await shopService.updateProductCount(productId, count);
+        console.log(result);
+
+        res.send({ product: result });
+    } catch (error) {
+        console.error('Error updating product count:', error);
+        res.status(500).send({ error: 'Internal Server Error' });
+    }
+});
+
+
 app.listen(PORT, () => {
     console.log(`Server is running on ${PORT}`);
 });

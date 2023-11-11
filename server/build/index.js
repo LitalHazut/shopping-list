@@ -134,6 +134,29 @@ app.post('/api/post', function (req, res) { return __awaiter(void 0, void 0, voi
         }
     });
 }); });
+app.put('/api/update/:productId', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var count, productId, result, error_2;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                _a.trys.push([0, 2, , 3]);
+                count = req.body.count;
+                productId = req.params.productId;
+                return [4 /*yield*/, shopService.updateProductCount(productId, count)];
+            case 1:
+                result = _a.sent();
+                console.log(result);
+                res.send({ product: result });
+                return [3 /*break*/, 3];
+            case 2:
+                error_2 = _a.sent();
+                console.error('Error updating product count:', error_2);
+                res.status(500).send({ error: 'Internal Server Error' });
+                return [3 /*break*/, 3];
+            case 3: return [2 /*return*/];
+        }
+    });
+}); });
 app.listen(PORT, function () {
     console.log("Server is running on ".concat(PORT));
 });
