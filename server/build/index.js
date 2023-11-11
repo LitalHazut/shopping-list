@@ -97,21 +97,64 @@ app.get('/api/get', function (req, res) { return __awaiter(void 0, void 0, void 
         }
     });
 }); });
-app.post('/api/post', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var name, categoryId, count, _a, _b;
+app.get('/api/getProducts', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var _a, _b;
     var _c;
     return __generator(this, function (_d) {
         switch (_d.label) {
             case 0:
-                name = req.body.name;
-                categoryId = req.body.categoryId;
-                count = req.body.count;
                 _b = (_a = res).send;
                 _c = {};
-                return [4 /*yield*/, shopService.addProduct(name, categoryId, count)];
+                return [4 /*yield*/, shopService.getAllProducts()];
             case 1:
-                _b.apply(_a, [(_c.product = _d.sent(), _c)]);
+                _b.apply(_a, [(_c.products = _d.sent(), _c)]);
                 return [2 /*return*/];
+        }
+    });
+}); });
+app.post('/api/post', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var _a, ProductName, CategoryID, Count, _b, _c, error_1;
+    var _d;
+    return __generator(this, function (_e) {
+        switch (_e.label) {
+            case 0:
+                _e.trys.push([0, 2, , 3]);
+                _a = req.body, ProductName = _a.ProductName, CategoryID = _a.CategoryID, Count = _a.Count;
+                _c = (_b = res).send;
+                _d = {};
+                return [4 /*yield*/, shopService.createProduct(ProductName, CategoryID, Count)];
+            case 1:
+                _c.apply(_b, [(_d.product = _e.sent(), _d)]);
+                return [3 /*break*/, 3];
+            case 2:
+                error_1 = _e.sent();
+                console.error('Error creating product:', error_1);
+                res.status(500).send({ error: 'Internal Server Error' });
+                return [3 /*break*/, 3];
+            case 3: return [2 /*return*/];
+        }
+    });
+}); });
+app.put('/api/products/:productId', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var Count, ProductID, result, error_2;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                _a.trys.push([0, 2, , 3]);
+                Count = req.body.Count;
+                ProductID = req.params.productId;
+                return [4 /*yield*/, shopService.updateProductCount(ProductID, Count)];
+            case 1:
+                result = _a.sent();
+                console.log(result);
+                res.send({ product: result });
+                return [3 /*break*/, 3];
+            case 2:
+                error_2 = _a.sent();
+                console.error('Error updating product count:', error_2);
+                res.status(500).send({ error: 'Internal Server Error' });
+                return [3 /*break*/, 3];
+            case 3: return [2 /*return*/];
         }
     });
 }); });

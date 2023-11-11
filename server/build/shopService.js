@@ -44,7 +44,39 @@ var ShopService = /** @class */ (function () {
     }
     ShopService.prototype.getAllCategories = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var result, error_1;
+            var result;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, dbConnection_1.dbConnection.connect()];
+                    case 1:
+                        _a.sent();
+                        return [4 /*yield*/, dbConnection_1.dbConnection.pool.request().query('SELECT * FROM Category')];
+                    case 2:
+                        result = _a.sent();
+                        return [2 /*return*/, result.recordset];
+                }
+            });
+        });
+    };
+    ShopService.prototype.getAllProducts = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var result;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, dbConnection_1.dbConnection.connect()];
+                    case 1:
+                        _a.sent();
+                        return [4 /*yield*/, dbConnection_1.dbConnection.pool.request().query('SELECT * FROM Product')];
+                    case 2:
+                        result = _a.sent();
+                        return [2 /*return*/, result.recordset];
+                }
+            });
+        });
+    };
+    ShopService.prototype.createProduct = function (ProductName, CategoryID, Count) {
+        return __awaiter(this, void 0, void 0, function () {
+            var sqlQuery, result, error_1;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -52,7 +84,13 @@ var ShopService = /** @class */ (function () {
                         return [4 /*yield*/, dbConnection_1.dbConnection.connect()];
                     case 1:
                         _a.sent();
-                        return [4 /*yield*/, dbConnection_1.dbConnection.pool.request().query('SELECT * FROM Category')];
+                        sqlQuery = 'INSERT INTO Product(ProductName, CategoryID,Count) VALUES (@ProductName, @CategoryID,@Count)';
+                        return [4 /*yield*/, dbConnection_1.dbConnection.pool
+                                .request()
+                                .input('ProductName', (0, mssql_1.VarChar)(255), ProductName)
+                                .input('CategoryID', mssql_1.Int, CategoryID)
+                                .input('Count', mssql_1.Int, Count)
+                                .query(sqlQuery)];
                     case 2:
                         result = _a.sent();
                         return [2 /*return*/, result.recordset];
@@ -64,7 +102,7 @@ var ShopService = /** @class */ (function () {
             });
         });
     };
-    ShopService.prototype.addProduct = function (name, categoryId, count) {
+    ShopService.prototype.updateProductCount = function (ProductID, Count) {
         return __awaiter(this, void 0, void 0, function () {
             var sqlQuery, result, error_2;
             return __generator(this, function (_a) {
@@ -74,12 +112,11 @@ var ShopService = /** @class */ (function () {
                         return [4 /*yield*/, dbConnection_1.dbConnection.connect()];
                     case 1:
                         _a.sent();
-                        sqlQuery = 'INSERT INTO Product(Productname, CategoryId,Count) VALUES (@Productname, @CategoryId,@Count)';
+                        sqlQuery = 'UPDATE Product SET Count = @Count WHERE ProductID = @ProductID';
                         return [4 /*yield*/, dbConnection_1.dbConnection.pool
                                 .request()
-                                .input('Productname', (0, mssql_1.VarChar)(255), name)
-                                .input('CategoryId', mssql_1.Int, categoryId)
-                                .input('Count', mssql_1.Int, count)
+                                .input('ProductID', mssql_1.Int, ProductID)
+                                .input('Count', mssql_1.Int, Count)
                                 .query(sqlQuery)];
                     case 2:
                         result = _a.sent();

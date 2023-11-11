@@ -1,66 +1,24 @@
-import React, { useState, useEffect } from 'react';
-import { fetchProducts, createProduct, fetchCategories } from '../shop-service';
-import { v4 as uuid } from 'uuid';
+import React, { useEffect, useState } from 'react';
+import { observer } from 'mobx-react-lite';
+import shopListStore from '../stores/ShopList';
+import ItemsTotal from './ItemsTotal';
 
-import { ICategory, IProduct } from '../types';
-
-
-const ShopList = () => {
+const ShopList: React.FC = observer(() => {
     const [productName, setProductName] = useState('');
-    const [categories, setCategories] = useState<ICategory[]>([]); // Specify the type of elements in the array
-    const [products, setProducts] = useState<IProduct[]>([]); // Specify the type of elements in the array
-    const [selectedCategory, setSelectedCategory] = useState<ICategory | undefined>();
-
-
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const categories = await fetchCategories();
-                setCategories(categories);
-                console.log(categories)
-            } catch (error) {
-                console.error('Error fetching categories:', error);
-            }
-        };
-
-        fetchData();
+        shopListStore.fetchData();
     }, []);
-    const findCategoryById = (categoryId: number): ICategory | undefined => {
-        return categories.find((category) => category.CategoryID === categoryId);
-    };
 
-    const handleAddProduct = async () => {
-        try {
-            const unique_id = uuid();
-            let productId = parseInt(unique_id);
-
-            const newProduct: IProduct = {
-                ProductID: productId,
-                ProductName: productName,
-                Count: 1,
-                CategoryID: selectedCategory?.CategoryID || 0, // Use a default value if CategoryID is undefined
-            };
-
-            await createProduct(newProduct);
-            const updatedCategories = await fetchProducts();
-            setCategories(updatedCategories.data);
-            setProductName('');
-        } catch (error) {
-            console.error('Error adding product:', error);
-        }
-    };
-    const getNumberOfProducts = (categoryId: number) => {
-        return products.filter(product => product.CategoryID === categoryId).length;
-    };
     return (
         <div>
             <h1>רשימת קניות</h1>
             <div style={{ marginRight: '80%' }}>
-                <h4>סה"כ: X מוצרים</h4>
+                <ItemsTotal totalItems={shopListStore.totalItems} />
             </div>
             <div style={{ display: 'flex', justifyContent: 'center' }} dir="rtl">
                 <div>
-                    <input className="form-control"
+                    <input
+                        className="form-control"
                         style={{ width: '200px', height: '45px' }}
                         type="text"
                         id="productName"
@@ -80,15 +38,15 @@ const ShopList = () => {
                         aria-haspopup="true"
                         aria-expanded="false"
                     >
-                        קטגוריה
+                        {shopListStore.buttonText}
                     </button>
-                    <div className="dropdown-menu" aria-labelledby="categoryDropdown">
-                        {categories.map((category, index) => (
+                    <div className="dropdown-menu" aria-labelledby="categoryDropdown" style={{ alignItems: 'center' }}>
+                        {shopListStore.categories.map((category, index) => (
                             <button
                                 key={index}
                                 className="dropdown-item"
                                 type="button"
-                                onClick={() => setSelectedCategory(findCategoryById(category.CategoryID))}
+                                onClick={() => shopListStore.handleCategoryClick(category)}
                             >
                                 {category.CategoryName}
                             </button>
@@ -97,30 +55,43 @@ const ShopList = () => {
                 </div>
 
                 <div style={{ marginRight: '90px' }}>
-
-                    <button type="button" className="btn btn-info"
+                    <button
+                        type="button"
+                        className="btn btn-info"
                         style={{ width: '120px', height: '40px' }}
-                        onClick={handleAddProduct}
+                        onClick={() => {
+                            shopListStore.handleAddProduct(productName);
+                            setProductName(''); // Clear productName in the component state
+                        }}
                     >
                         הוסף
                     </button>
                 </div>
             </div>
-            <hr style={{ border: '1px solid #ccc', margin: '170px 0' }} />
-            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                {categories
-                    .map((category, index) => (
-                        <div key={index} style={{ border: '1px solid gray', padding: '10px', width: '150px', textAlign: 'center' }}>
-                            <div style={{ fontWeight: 'bold' }}>{category.CategoryName}</div>
-                            <div>{`Number of products: ${getNumberOfProducts(category.CategoryID)}`}</div>
+            <hr style={{ border: '1px solid #ccc', marginTop: '90px' }} />
+            <h3>יש לאסוף מוצרים אלו במחלקות המתאימות</h3>
+            <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '30px' }}>
+                {shopListStore.categories.map((category, index) => (
+                    <div
+                        key={index}
+                        style={{ border: '1px solid gray', padding: '5px', width: '180px', textAlign: 'center', margin: '0 40px' }}
+                    >
+                        <div style={{ fontWeight: 'bold' }}>
+                            {category.CategoryName}- {shopListStore.getNumberOfProducts(category.CategoryID)} מוצרים
                         </div>
-                    ))
-                }
+                        {shopListStore.products
+                            .filter((product) => product.CategoryID === category.CategoryID)
+                            .map((product, productIndex) => (
+                                <div key={productIndex}>
+                                    {product.Count > 1 && <label>({product.Count})</label>}
+                                    <label style={{ marginLeft: '7px' }}>{product.ProductName}</label>
+                                </div>
+                            ))}
+                    </div>
+                ))}
             </div>
-
-
         </div>
     );
-};
+});
 
 export default ShopList;

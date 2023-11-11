@@ -1,5 +1,5 @@
 export interface IProduct {
-  ProductID: number;
+  ProductID?: number;
   ProductName: string;
   Count: number;
   CategoryID: number;
