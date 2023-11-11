@@ -81,7 +81,6 @@ else {
     app.use((0, cors_1.default)(corsOptions));
 }
 var shopService = new shopService_1.default();
-// Route to get all posts
 app.get('/api/get', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var _a, _b;
     var _c;
@@ -146,7 +145,6 @@ app.put('/api/products/:productId', function (req, res) { return __awaiter(void 
                 return [4 /*yield*/, shopService.updateProductCount(ProductID, Count)];
             case 1:
                 result = _a.sent();
-                console.log(result);
                 res.send({ product: result });
                 return [3 /*break*/, 3];
             case 2:
