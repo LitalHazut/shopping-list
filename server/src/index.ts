@@ -40,12 +40,12 @@ app.post('/api/post', async (req, res) => {
     }
 });
 
-app.put('/api/update/:productId', async (req, res) => {
+app.put('/api/products/:productId', async (req, res) => {
     try {
-        const { count } = req.body;
-        const productId = req.params.productId;
+        const { Count } = req.body;
+        const ProductID = req.params.productId;
 
-        const result = await shopService.updateProductCount(productId, count);
+        const result = await shopService.updateProductCount(ProductID, Count);
         console.log(result);
 
         res.send({ product: result });

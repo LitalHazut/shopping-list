@@ -45,26 +45,29 @@ const ShopList = () => {
                 return;
             }
 
-            const existingProduct = products.find(product => product.ProductName === productName);
-
+            const existingProduct = products.find(
+                product => product.ProductName === productName && product.CategoryID === selectedCategory?.CategoryID
+            );
+            
             if (existingProduct) {
                 const updatedProduct = {
                     ...existingProduct,
                     Count: existingProduct.Count + 1,
                 };
                 await updateProduct(updatedProduct);
-            } else {
+
+            }
+            else {
                 const newProduct: IProduct = {
                     ProductName: productName,
                     Count: 1,
                     CategoryID: selectedCategory?.CategoryID || 0,
                 };
-                console.log(newProduct);
                 await createProduct(newProduct);
             }
 
-            const updatedCategories = await fetchCategories();
-            setCategories(updatedCategories.data);
+            // const updatedCategories = await fetchCategories();
+            // setCategories(updatedCategories.data);
             setProductName('');
         } catch (error) {
             console.error('Error adding/updating product:', error);

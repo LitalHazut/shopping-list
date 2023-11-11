@@ -35,7 +35,7 @@ class ShopService {
       throw error;
     }
   }
-  async updateProductCount(productId: string, count: number) {
+  async updateProductCount(ProductID: string, Count: number) {
     try {
       await dbConnection.connect();
 
@@ -43,8 +43,8 @@ class ShopService {
 
       const result = await dbConnection.pool
         .request()
-        .input('ProductID', Int, productId)
-        .input('Count', Int, count)
+        .input('ProductID', Int, ProductID)
+        .input('Count', Int, Count)
         .query(sqlQuery);
 
       return result.recordset;
