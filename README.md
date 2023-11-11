@@ -6,7 +6,7 @@
 <p>- A Shopping list Project, written in ReactJS,NodeJS,TypeScript and DB -MSSQL.</p>
 
 ## Download DB to local mssql:
-<p>- In this project i use with data base MSSQL - and to download you directly to you - you need to go to folder- sqlbackup inside you have a bak file and in Microsoft SQL Server Management Studio 18 app you make an import to this bak file-</p>
+<p>- In this project i use with data base MSSQL - and to download you directly to you - you need to go to folder- sqlbackup inside you have a bacpac file and in Microsoft SQL Server Management Studio 18 app you make an import to this bak file-</p>
 <p>1. Right click on Databases</p>
 <p>2. Import data-tier Application</p>
 <p>3. In browse you choose this file </p>
