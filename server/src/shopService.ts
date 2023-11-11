@@ -17,15 +17,14 @@ class ShopService {
     return result.recordset;
   }
 
-  async createProduct(productId: number, name: string, categoryId: boolean, count: number): Promise<any> {
+  async createProduct(name: string, categoryId: boolean, count: number): Promise<any> {
     try {
       await dbConnection.connect();
 
-      const sqlQuery = 'INSERT INTO Product(ProductID,ProductName, CategoryID,Count) VALUES (@ProductID,@ProductName, @CategoryID,@Count)';
+      const sqlQuery = 'INSERT INTO Product(ProductName, CategoryID,Count) VALUES (@ProductName, @CategoryID,@Count)';
 
       const result = await dbConnection.pool
         .request()
-        .input('ProductID', Int, productId)
         .input('ProductName', VarChar(255), name)
         .input('CategoryID', Int, categoryId)
         .input('Count', Int, count)

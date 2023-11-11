@@ -29,11 +29,11 @@ export async function createProduct(product: IProduct) {
         throw error;
     }
 }
-const updateProduct = async (updatedProduct: IProduct) => {
-    try {
-        await axios.put(`/api/products/${updatedProduct.ProductID}`, updatedProduct);
-    } catch (error) {
-        console.error('Error updating product:', error);
-        throw error;
-    }
-};
+// const updateProduct = async (updatedProduct: IProduct) => {
+//     try {
+//         await axios.put(`/api/products/${updatedProduct.ProductID}`, updatedProduct);
+//     } catch (error) {
+//         console.error('Error updating product:', error);
+//         throw error;
+//     }
+// };

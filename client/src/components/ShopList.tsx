@@ -46,16 +46,13 @@ const ShopList = () => {
 
 
             } else {
-                const unique_id = uuid();
-                let productId = parseInt(unique_id);
 
                 const newProduct: IProduct = {
-                    ProductID: productId,
                     ProductName: productName,
                     Count: 1,
-                    CategoryID: selectedCategory?.CategoryID || 0,
+                    CategoryID: selectedCategory?.CategoryID || 0
                 };
-
+                console.log(newProduct);
                 await createProduct(newProduct);
             }
 

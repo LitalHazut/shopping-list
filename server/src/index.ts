@@ -32,8 +32,9 @@ app.get('/api/getProducts', async (req, res) => {
 
 app.post('/api/post', async (req, res) => {
     try {
-        const { productId, name, categoryId, count } = req.body;
-        const result = await shopService.createProduct(productId, name, categoryId, count);
+        const { name, categoryId, count } = req.body;
+        const result = await shopService.createProduct(name, categoryId, count);
+        console.log(result)
         res.send({ product: result });
     } catch (error) {
         console.error('Error creating product:', error);
