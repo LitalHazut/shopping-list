@@ -74,7 +74,7 @@ var ShopService = /** @class */ (function () {
             });
         });
     };
-    ShopService.prototype.createProduct = function (name, categoryId, count) {
+    ShopService.prototype.createProduct = function (ProductName, CategoryID, Count) {
         return __awaiter(this, void 0, void 0, function () {
             var sqlQuery, result, error_1;
             return __generator(this, function (_a) {
@@ -87,9 +87,9 @@ var ShopService = /** @class */ (function () {
                         sqlQuery = 'INSERT INTO Product(ProductName, CategoryID,Count) VALUES (@ProductName, @CategoryID,@Count)';
                         return [4 /*yield*/, dbConnection_1.dbConnection.pool
                                 .request()
-                                .input('ProductName', (0, mssql_1.VarChar)(255), name)
-                                .input('CategoryID', mssql_1.Int, categoryId)
-                                .input('Count', mssql_1.Int, count)
+                                .input('ProductName', (0, mssql_1.VarChar)(255), ProductName)
+                                .input('CategoryID', mssql_1.Int, CategoryID)
+                                .input('Count', mssql_1.Int, Count)
                                 .query(sqlQuery)];
                     case 2:
                         result = _a.sent();

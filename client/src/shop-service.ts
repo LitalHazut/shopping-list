@@ -22,7 +22,6 @@ export const fetchProducts = async () => {
 export async function createProduct(product: IProduct) {
     try {
         const response = await axios.post('/api/post', product);
-        console.log(response)
         return response.data;
     } catch (error) {
         console.error('Error creating product:', error);

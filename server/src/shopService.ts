@@ -17,7 +17,7 @@ class ShopService {
     return result.recordset;
   }
 
-  async createProduct(name: string, categoryId: boolean, count: number): Promise<any> {
+  async createProduct(ProductName: string, CategoryID: number, Count: number): Promise<any> {
     try {
       await dbConnection.connect();
 
@@ -25,9 +25,9 @@ class ShopService {
 
       const result = await dbConnection.pool
         .request()
-        .input('ProductName', VarChar(255), name)
-        .input('CategoryID', Int, categoryId)
-        .input('Count', Int, count)
+        .input('ProductName', VarChar(255), ProductName)
+        .input('CategoryID', Int, CategoryID)
+        .input('Count', Int, Count)
         .query(sqlQuery);
 
       return result.recordset;

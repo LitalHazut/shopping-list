@@ -113,20 +113,21 @@ app.get('/api/getProducts', function (req, res) { return __awaiter(void 0, void 
     });
 }); });
 app.post('/api/post', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var _a, name, categoryId, count, result, error_1;
-    return __generator(this, function (_b) {
-        switch (_b.label) {
+    var _a, ProductName, CategoryID, Count, _b, _c, error_1;
+    var _d;
+    return __generator(this, function (_e) {
+        switch (_e.label) {
             case 0:
-                _b.trys.push([0, 2, , 3]);
-                _a = req.body, name = _a.name, categoryId = _a.categoryId, count = _a.count;
-                return [4 /*yield*/, shopService.createProduct(name, categoryId, count)];
+                _e.trys.push([0, 2, , 3]);
+                _a = req.body, ProductName = _a.ProductName, CategoryID = _a.CategoryID, Count = _a.Count;
+                _c = (_b = res).send;
+                _d = {};
+                return [4 /*yield*/, shopService.createProduct(ProductName, CategoryID, Count)];
             case 1:
-                result = _b.sent();
-                console.log(result);
-                res.send({ product: result });
+                _c.apply(_b, [(_d.product = _e.sent(), _d)]);
                 return [3 /*break*/, 3];
             case 2:
-                error_1 = _b.sent();
+                error_1 = _e.sent();
                 console.error('Error creating product:', error_1);
                 res.status(500).send({ error: 'Internal Server Error' });
                 return [3 /*break*/, 3];

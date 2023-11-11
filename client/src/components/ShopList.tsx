@@ -133,10 +133,10 @@ const ShopList = () => {
             <hr style={{ border: '1px solid #ccc', marginTop: '90px' }} />
             <h3>יש לאסוף מוצרים אלו במחלקות המתאימות</h3>
             <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '30px' }}>
-                {categories.map((category, index) => (
+                {categories && categories.map((category, index) => (
                     <div key={index} style={{ border: '1px solid gray', padding: '10px', width: '170px', textAlign: 'center', margin: '0 40px' }}>
                         <div style={{ fontWeight: 'bold' }}>{category.CategoryName}</div>
-                        {products
+                        {products && products
                             .filter(product => product.CategoryID === category.CategoryID)
                             .map((product, productIndex) => (
                                 <div key={productIndex}>

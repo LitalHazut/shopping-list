@@ -32,10 +32,8 @@ app.get('/api/getProducts', async (req, res) => {
 
 app.post('/api/post', async (req, res) => {
     try {
-        const { name, categoryId, count } = req.body;
-        const result = await shopService.createProduct(name, categoryId, count);
-        console.log(result)
-        res.send({ product: result });
+        const { ProductName, CategoryID, Count } = req.body;
+        res.send({ product: await shopService.createProduct(ProductName, CategoryID, Count) });
     } catch (error) {
         console.error('Error creating product:', error);
         res.status(500).send({ error: 'Internal Server Error' });
