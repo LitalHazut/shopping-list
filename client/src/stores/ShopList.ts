@@ -82,4 +82,5 @@ class ShopListStore {
 }
 
 const shopListStore = new ShopListStore();
+
 export default shopListStore;
