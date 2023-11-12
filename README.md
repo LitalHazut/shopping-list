@@ -14,6 +14,7 @@
 <p>3. In browse you choose this file </p>
 <p>3. click NEXT </p>
 
+
 #### In Project you have a dbConncection.ts file you need to change the server name to <strong>your</strong> server name.
 ####  Thats it you have the db in your local computer.
 
